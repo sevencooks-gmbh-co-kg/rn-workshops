@@ -13,8 +13,8 @@
     "expo-status-bar": "~1.4.4",
     "react": "18.2.0",
     "react-native": "0.71.4",
-    "react-native-gesture-handler": "^2.9.0",
-    "react-native-reanimated": "^3.0.2"
+    "react-native-gesture-handler": "~2.9.0",
+    "react-native-reanimated": "~2.14.4"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
@@ -22,7 +22,7 @@
     "@types/react": "~18.0.14",
     "eslint": "^8.36.0",
     "prettier": "^2.8.6",
-    "typescript": "^5.0.2"
+    "typescript": "^4.9.4"
   },
   "private": true
 }
