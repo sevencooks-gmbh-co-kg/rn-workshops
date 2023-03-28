@@ -1,13 +1,14 @@
 import * as React from 'react'
 import { StatusBar } from 'expo-status-bar'
-import { StyleSheet, Text } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import ColorPicker from './src/ColorPicker/ColorPicker'
 
 export default function App() {
   return (
     <GestureHandlerRootView style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
       <StatusBar style="auto" />
+      <ColorPicker />
     </GestureHandlerRootView>
   )
 }
