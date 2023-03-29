@@ -1,9 +1,18 @@
 import * as React from 'react'
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native'
+import {
+  ActivityIndicator,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
-import { useData } from './data'
+import { type Film, useData } from './data'
 
-const Component = () => {
+interface ComponentProps {
+  onPressFilm: (film: Film) => void
+}
+const Component = ({ onPressFilm }: ComponentProps) => {
   const { data, error, isLoading } = useData()
   if (isLoading) {
     return (
@@ -22,10 +31,14 @@ const Component = () => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {data?.map(film => (
-        <View key={film.id} style={styles.card}>
+        <Pressable
+          key={film.id}
+          style={styles.card}
+          onPress={() => onPressFilm(film)}
+        >
           <Text style={styles.title}>{film.title}</Text>
           <Text style={styles.crawl}>{film.openingCrawl}</Text>
-        </View>
+        </Pressable>
       ))}
     </ScrollView>
   )

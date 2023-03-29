@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { request, gql } from 'graphql-request'
 
-interface Film {
+export interface Film {
   id: string
   title: string
   openingCrawl: string
