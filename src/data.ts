@@ -15,7 +15,7 @@ type QueryResponse = {
 
 const endpoint = 'https://swapi-graphql.netlify.app/.netlify/functions/index'
 
-const query = gql`
+export const query = gql`
   {
     allFilms {
       films {

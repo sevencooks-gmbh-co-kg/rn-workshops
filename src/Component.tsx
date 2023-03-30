@@ -10,14 +10,14 @@ import { ScrollView } from 'react-native-gesture-handler'
 import { type Film, useData } from './data'
 
 interface ComponentProps {
-  onPressFilm: (film: Film) => void
+  onPressFilm?: (film: Film) => void
 }
 const Component = ({ onPressFilm }: ComponentProps) => {
   const { data, error, isLoading } = useData()
   if (isLoading) {
     return (
       <View style={styles.loading}>
-        <ActivityIndicator size="large" />
+        <ActivityIndicator testID="loading" size="large" />
       </View>
     )
   }
@@ -34,7 +34,7 @@ const Component = ({ onPressFilm }: ComponentProps) => {
         <Pressable
           key={film.id}
           style={styles.card}
-          onPress={() => onPressFilm(film)}
+          onPress={() => onPressFilm?.(film)}
         >
           <Text style={styles.title}>{film.title}</Text>
           <Text style={styles.crawl}>{film.openingCrawl}</Text>
