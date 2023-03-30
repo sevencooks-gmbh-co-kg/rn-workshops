@@ -1,13 +1,14 @@
 import * as React from 'react'
 import { StatusBar } from 'expo-status-bar'
-import { StyleSheet, Text } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import MyTabs from './src/MyTabs'
 
 export default function App() {
   return (
     <GestureHandlerRootView style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
       <StatusBar style="auto" />
+      <MyTabs />
     </GestureHandlerRootView>
   )
 }
@@ -15,8 +16,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    marginTop: 24,
+    backgroundColor: '#FFFBFE',
   },
 })
