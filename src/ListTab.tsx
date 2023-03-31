@@ -1,11 +1,7 @@
 import * as React from 'react'
-import {
-  ActivityIndicator,
-  FlatList,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native'
+import { FlatList, StyleSheet, Text, View } from 'react-native'
+import Fallback from './Fallback'
+import withData from './withData'
 
 interface Item {
   id: string
@@ -23,30 +19,10 @@ const getItems = () =>
     )
   })
 
-const ListTab = () => {
-  const [data, setData] = React.useState<Item[] | undefined>()
-  const [error, setError] = React.useState<unknown>()
-  const [loading, setLoading] = React.useState<boolean>(false)
-
-  React.useEffect(() => {
-    setLoading(true)
-    getItems()
-      .then(setData)
-      .catch(setError)
-      .finally(() => setLoading(false))
-  }, [])
-
-  if (loading) {
-    return <ActivityIndicator style={styles.loading} size="large" />
-  }
-
-  if (error) {
-    return (
-      <View style={styles.error}>
-        <Text style={styles.errorText}>Some error occured</Text>
-      </View>
-    )
-  }
+interface ListTabProps {
+  data: Item[]
+}
+const ListTab = ({ data }: ListTabProps) => {
   return (
     <FlatList
       contentContainerStyle={styles.container}
@@ -67,22 +43,6 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     paddingHorizontal: 8,
   },
-  loading: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  error: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#B3261E',
-  },
-  errorText: {
-    fontSize: 20,
-    fontWeight: '400',
-    color: '#FFFFFF',
-  },
   item: {
     flex: 1,
     justifyContent: 'center',
@@ -97,4 +57,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default ListTab
+export default withData(getItems, Fallback)(ListTab)

@@ -8,6 +8,8 @@ import {
   type ImageURISource,
   type ImageRequireSource,
 } from 'react-native'
+import DataView from './DataView'
+import Fallback from './Fallback'
 
 interface User {
   firstname: string
@@ -30,67 +32,31 @@ const getUser = () =>
   })
 
 const ProfileTab = () => {
-  const [data, setData] = React.useState<User | undefined>()
-  const [error, setError] = React.useState<unknown>()
-  const [loading, setLoading] = React.useState<boolean>(false)
-
-  React.useEffect(() => {
-    setLoading(true)
-    getUser()
-      .then(setData)
-      .catch(setError)
-      .finally(() => setLoading(false))
-  }, [])
-
-  if (loading) {
-    return <ActivityIndicator style={styles.loading} size="large" />
-  }
-
-  if (error) {
-    return (
-      <View style={styles.error}>
-        <Text style={styles.errorText}>Some error occured</Text>
-      </View>
-    )
-  }
-
   return (
-    <View style={styles.container}>
-      <View style={styles.top}>
-        {data?.image ? (
-          <Image style={styles.image} source={data?.image} />
-        ) : null}
-        <Text
-          style={styles.name}
-        >{`${data?.firstname} ${data?.lastname}`}</Text>
-      </View>
-      <Text style={styles.subscription}>
-        Subscription status:{' '}
-        <Text style={styles.status}>{data?.subscription}</Text>
-      </Text>
-    </View>
+    <DataView getData={getUser} renderLoading={() => <Fallback loading />}>
+      {({ data }) => (
+        <View style={styles.container}>
+          <View style={styles.top}>
+            {data?.image ? (
+              <Image style={styles.image} source={data?.image} />
+            ) : null}
+            <Text
+              style={styles.name}
+            >{`${data?.firstname} ${data?.lastname}`}</Text>
+          </View>
+          <Text style={styles.subscription}>
+            Subscription status:{' '}
+            <Text style={styles.status}>{data?.subscription}</Text>
+          </Text>
+        </View>
+      )}
+    </DataView>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  loading: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  error: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#B3261E',
-  },
-  errorText: {
-    fontSize: 20,
-    fontWeight: '400',
-    color: '#FFFFFF',
   },
   top: {
     alignItems: 'center',

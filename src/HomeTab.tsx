@@ -33,4 +33,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default HomeTab
+export default React.memo(HomeTab)
